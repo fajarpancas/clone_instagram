@@ -8,13 +8,23 @@ const IMAGE_SIZE = 60;
 
 class StoriesRowItem extends PureComponent {
   render() {
-    const {item} = this.props;
+    const {item, index} = this.props;
     return (
-      <View style={styles.wrapper}>
+      <View
+        style={{
+          ...styles.wrapper,
+          marginLeft: index === 0 ? scaleWidth(15) : 0,
+        }}>
         <TouchableOpacity style={styles.stories}>
           <View style={styles.preview} />
         </TouchableOpacity>
-        <Text numberOfLines={1}>{item.username}</Text>
+        <Text
+          style={{
+            fontSize: 12,
+          }}
+          numberOfLines={1}>
+          {item.username}
+        </Text>
       </View>
     );
   }
@@ -25,7 +35,7 @@ export default StoriesRowItem;
 const styles = StyleSheet.create({
   wrapper: {
     width: scaleWidth(CONTENT_SIZE),
-    marginHorizontal: scaleWidth(8),
+    marginRight: scaleWidth(15),
     alignItems: 'center',
   },
   stories: {
