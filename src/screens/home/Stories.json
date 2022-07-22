@@ -1,0 +1,51 @@
+[
+    {
+        "id": "stories1",
+        "user": "Fajar Panca",
+        "username": "fajarpancas",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories2",
+        "user": "Mesut Ozil",
+        "username": "ozil_10",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories3",
+        "user": "Dua Lipa",
+        "username": "_dualipaaja",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories4",
+        "user": "Tom Holland",
+        "username": "tom_holland",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories5",
+        "user": "Chris Hemsworth",
+        "username": "chrishemsworth",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories6",
+        "user": "Barry Allen",
+        "username": "theflash_",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+    {
+        "id": "stories7",
+        "user": "Oliver Queen",
+        "username": "green4rrow",
+        "hasPlay": false,
+        "createdAt": "2022-07-23 00:19:12"
+    },
+]
