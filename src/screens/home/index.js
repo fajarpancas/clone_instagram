@@ -1,10 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <SafeAreaView>
-      <Text>Home</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
+        <Text>go to activity</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
