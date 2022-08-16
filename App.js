@@ -12,11 +12,15 @@ export default function App({appId}) {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <RealmProvider>
-        <NavigationContainer>
-          <BottomTabsNavigator />
-        </NavigationContainer>
-      </RealmProvider>
+      <AppProvider id={appId}>
+        <UserProvider fallback={LoginScreen}>
+          <RealmProvider sync={{flexible: true}}>
+            <NavigationContainer>
+              <BottomTabsNavigator />
+            </NavigationContainer>
+          </RealmProvider>
+        </UserProvider>
+      </AppProvider>
     </SafeAreaView>
   );
 }

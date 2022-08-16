@@ -1,8 +1,11 @@
 import React, {useCallback, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
-// import colors from '../styles/colors';
-// import {shadows} from '../styles/shadows';
-// import {buttonStyles} from '../styles/button';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {Realm, useApp} from '@realm/react';
 
 export let AuthState;
@@ -23,7 +26,8 @@ export const LoginScreen = () => {
   // with the supplied credentials
   const handleLogin = useCallback(async () => {
     setAuthState(AuthState.Loading);
-    const credentials = Realm.Credentials.emailPassword(email, password);
+    const credentials = Realm.Credentials.anonymous();
+    console.log({credentials});
     try {
       await app.logIn(credentials);
       setAuthState(AuthState.None);
@@ -43,7 +47,7 @@ export const LoginScreen = () => {
       await app.emailPasswordAuth.registerUser({email, password});
       // ...then login with the newly created user
       const credentials = Realm.Credentials.emailPassword(email, password);
-
+      console.log({credentials});
       await app.logIn(credentials);
       setAuthState(AuthState.None);
     } catch (e) {
@@ -90,7 +94,7 @@ export const LoginScreen = () => {
       )}
 
       <View style={styles.buttons}>
-        <Pressable
+        <TouchableOpacity
           onPress={handleLogin}
           style={[
             styles.button,
@@ -98,9 +102,9 @@ export const LoginScreen = () => {
           ]}
           disabled={authState === AuthState.Loading}>
           <Text>Login</Text>
-        </Pressable>
+        </TouchableOpacity>
 
-        <Pressable
+        <TouchableOpacity
           onPress={handleRegister}
           style={[
             styles.button,
@@ -109,7 +113,7 @@ export const LoginScreen = () => {
           ]}
           disabled={authState === AuthState.Loading}>
           <Text>Register</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

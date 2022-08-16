@@ -3,5 +3,5 @@ import {Feeds} from './schemas';
 
 export const FeedRealmContext = createRealmContext({
   schema: [Feeds],
-  schemaVersion: 1,
+  schemaVersion: 3,
 });

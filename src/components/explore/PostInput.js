@@ -1,14 +1,24 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, TextInput, View} from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Colors from '../../themes/Colors';
 import {scaleWidth} from '../../transforms/scale';
 
-const PostInput = ({addPost}) => {
+const PostInput = ({addPost, onLogout}) => {
   const [caption, setCaption] = useState('');
   const [photo, setPhoto] = useState('');
   const username = 'fajarpancas';
   return (
     <View style={styles.wrapper}>
+      <TouchableOpacity style={styles.logout} onPress={onLogout}>
+        <Text style={styles.logoutText}>Logout</Text>
+      </TouchableOpacity>
       <TextInput
         style={styles.textInput}
         placeholderTextColor={Colors.white}
@@ -64,6 +74,18 @@ const styles = StyleSheet.create({
     borderRadius: scaleWidth(20),
     padding: scaleWidth(10),
     marginTop: scaleWidth(10),
+  },
+  logout: {
+    backgroundColor: 'red',
+    width: scaleWidth(100),
+    height: scaleWidth(40),
+    borderRadius: scaleWidth(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+  },
+  logoutText: {
+    color: Colors.white,
   },
 });
 

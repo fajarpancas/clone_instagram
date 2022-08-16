@@ -12,7 +12,6 @@ export default function Home({navigation}) {
         data={Posts}
         keyExtractor={(item, index) => item.id}
         renderItem={({item, index}) => {
-          console.log({item});
           return <PostRowItem data={item} index={index} />;
         }}
         ListHeaderComponent={() => <InstaStories data={STORIES} />}
