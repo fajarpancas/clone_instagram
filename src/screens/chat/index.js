@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, SafeAreaView} from 'react-native';
 import {FeedRealmContext} from '../../realm/realmConfig';
 import {Chats} from '../../realm/schemas';
@@ -9,6 +9,10 @@ import ChatInput from '../../components/chat/ChatInput';
 const {useQuery, useRealm} = FeedRealmContext;
 
 export default function Chat() {
+  const [editActive, setEditActive] = useState(false);
+  const [editValue, setEditValue] = useState('');
+  const [editMessageId, setEditMessageId] = useState(null);
+
   const realm = useRealm();
   const chats = useQuery('chats');
   const user = useUser();
@@ -55,6 +59,20 @@ export default function Chat() {
     [realm],
   );
 
+  const handleUpdate = useCallback(
+    message => {
+      realm.write(() => {
+        const chat = realm?.objectForPrimaryKey('chats', message.messageId);
+        chat.text = message.newMessage;
+        chat.isEdit = true;
+      });
+      setEditActive(false);
+      setEditValue('');
+      setEditMessageId(null);
+    },
+    [realm],
+  );
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <FlatList
@@ -62,14 +80,31 @@ export default function Chat() {
         keyExtractor={item => item._id.toString()}
         renderItem={({item, index}) => (
           <ChatBubble
+            index={index}
             onDelete={handleDelete}
             onUnsend={handleUnsend}
+            onUpdate={(id, message) => {
+              setEditActive(true);
+              setEditMessageId(id);
+              setEditValue(message);
+            }}
             user={user}
             item={item}
           />
         )}
       />
-      <ChatInput onSend={handleSend} />
+      <ChatInput
+        editActive={editActive}
+        editValue={editValue}
+        editMessageId={editMessageId}
+        onSend={handleSend}
+        onUpdate={handleUpdate}
+        onCancelEdit={() => {
+          setEditActive(false);
+          setEditMessageId(null);
+          setEditValue('');
+        }}
+      />
     </SafeAreaView>
   );
 }
