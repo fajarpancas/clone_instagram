@@ -26,7 +26,7 @@ export const LoginScreen = () => {
   // with the supplied credentials
   const handleLogin = useCallback(async () => {
     setAuthState(AuthState.Loading);
-    const credentials = Realm.Credentials.anonymous();
+    const credentials = Realm.Credentials.emailPassword(email, password);
     console.log({credentials});
     try {
       await app.logIn(credentials);

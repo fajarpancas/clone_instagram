@@ -4,7 +4,7 @@ import {ExploreRowItem} from '../../components/explore/ExploreRowItem';
 import PostInput from '../../components/explore/PostInput';
 import {FeedRealmContext} from '../../realm/realmConfig';
 import {Feeds} from '../../realm/schemas';
-import {Realm, useApp, useUser} from '@realm/react';
+import {useUser} from '@realm/react';
 import {scaleHeight, scaleWidth} from '../../transforms/scale';
 import Colors from '../../themes/Colors';
 import debounce from 'lodash/debounce';
@@ -14,13 +14,13 @@ const {useQuery, useRealm} = FeedRealmContext;
 export default function Explore({navigation}) {
   const [filter, setFilter] = useState('');
   const realm = useRealm();
-  const result = useQuery(Feeds).filtered('caption CONTAINS $0', filter);
+  const result = useQuery('feeds').filtered('caption CONTAINS $0', filter);
   const user = useUser();
   let feedSort = useMemo(() => result.sorted('createdAt', true), [result]);
 
   useEffect(() => {
     realm.subscriptions.update(mutableSubs => {
-      mutableSubs.add(realm.objects(Feeds));
+      mutableSubs.add(realm.objects('feeds'));
     });
   }, [realm, result]);
 
@@ -73,7 +73,11 @@ export default function Explore({navigation}) {
         keyExtractor={item => item?._id.toString()}
         ListHeaderComponent={() => (
           <>
-            <PostInput addPost={handleCreate} onLogout={handleLogout} />
+            <PostInput
+              addPost={handleCreate}
+              onLogout={handleLogout}
+              user={user?.profile?.email || 'anonymous'}
+            />
             <TextInput
               placeholder="Search by caption"
               style={styles.textInput}

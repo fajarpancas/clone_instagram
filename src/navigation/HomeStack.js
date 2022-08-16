@@ -2,6 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home';
 import ActivityScreen from '../screens/home/Activity';
+import ChatScreen from '../screens/chat';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export default function HomeStackScreen() {
         options={{headerShown: false}}
       />
       <HomeStack.Screen name="Activity" component={ActivityScreen} />
+      <HomeStack.Screen name="Chat" component={ChatScreen} />
     </HomeStack.Navigator>
   );
 }

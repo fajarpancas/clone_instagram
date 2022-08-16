@@ -14,10 +14,12 @@ const BottomTabsNavigator = () => {
       <Tab.Screen
         name="home"
         component={HomeStackScreen}
-        options={{
-          headerLeft: props => <CustomHeader props={props} />,
+        options={({navigation, route}) => ({
           headerTitle: '',
-        }}
+          headerLeft: props => (
+            <CustomHeader navigation={navigation} {...props} />
+          ),
+        })}
       />
       <Tab.Screen
         name="explore"

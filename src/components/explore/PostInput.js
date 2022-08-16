@@ -10,15 +10,18 @@ import {
 import Colors from '../../themes/Colors';
 import {scaleWidth} from '../../transforms/scale';
 
-const PostInput = ({addPost, onLogout}) => {
+const PostInput = ({addPost, onLogout, user}) => {
   const [caption, setCaption] = useState('');
   const [photo, setPhoto] = useState('');
   const username = 'fajarpancas';
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity style={styles.logout} onPress={onLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+      <View style={styles.userWrapper}>
+        <Text style={styles.logoutText}>{user}</Text>
+        <TouchableOpacity style={styles.logout} onPress={onLogout}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
       <TextInput
         style={styles.textInput}
         placeholderTextColor={Colors.white}
@@ -86,6 +89,11 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     color: Colors.white,
+  },
+  userWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 

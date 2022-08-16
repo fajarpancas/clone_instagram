@@ -1,7 +1,7 @@
 import {createRealmContext} from '@realm/react';
-import {Feeds} from './schemas';
+import {Chats, Feeds} from './schemas';
 
 export const FeedRealmContext = createRealmContext({
-  schema: [Feeds],
-  schemaVersion: 3,
+  schema: [Feeds, Chats],
+  schemaVersion: 5,
 });
