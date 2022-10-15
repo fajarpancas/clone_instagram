@@ -14,7 +14,7 @@ export default function Chat() {
   const [editMessageId, setEditMessageId] = useState(null);
 
   const realm = useRealm();
-  const chats = useQuery('chats');
+  const chats = useQuery('chats').sorted('createdAt', true);
   const user = useUser();
 
   useEffect(() => {
@@ -77,7 +77,9 @@ export default function Chat() {
     <SafeAreaView style={{flex: 1}}>
       <FlatList
         data={chats}
+        inverted={true}
         keyExtractor={item => item._id.toString()}
+        contentContainerStyle={{flexGrow: 1}}
         renderItem={({item, index}) => (
           <ChatBubble
             index={index}

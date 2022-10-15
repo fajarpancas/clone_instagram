@@ -5,8 +5,11 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {Realm, useApp} from '@realm/react';
+import {scaleWidth} from '../../transforms/scale';
+import Images from '../../themes/Images';
 
 export let AuthState;
 
@@ -16,6 +19,7 @@ export let AuthState;
   AuthState[(AuthState.LoginError = 2)] = 'LoginError';
   AuthState[(AuthState.RegisterError = 3)] = 'RegisterError';
 })(AuthState || (AuthState = {}));
+
 export const LoginScreen = () => {
   const app = useApp();
   const [email, setEmail] = useState('');
@@ -26,9 +30,8 @@ export const LoginScreen = () => {
   // with the supplied credentials
   const handleLogin = useCallback(async () => {
     setAuthState(AuthState.Loading);
-    const credentials = Realm.Credentials.emailPassword(email, password);
-    console.log({credentials});
     try {
+      const credentials = Realm.Credentials.emailPassword(email, password);
       await app.logIn(credentials);
       setAuthState(AuthState.None);
     } catch (e) {
@@ -47,7 +50,6 @@ export const LoginScreen = () => {
       await app.emailPasswordAuth.registerUser({email, password});
       // ...then login with the newly created user
       const credentials = Realm.Credentials.emailPassword(email, password);
-      console.log({credentials});
       await app.logIn(credentials);
       setAuthState(AuthState.None);
     } catch (e) {
@@ -56,8 +58,14 @@ export const LoginScreen = () => {
     }
   }, [email, password, setAuthState, app]);
 
+  console.log({authState});
   return (
     <View style={styles.content}>
+      <View style={{marginBottom: scaleWidth(40)}}>
+        <Image source={Images.instagramLogo} style={styles.logoStyle} />
+        <Text style={styles.cloneText}>(Clone)</Text>
+      </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -99,9 +107,10 @@ export const LoginScreen = () => {
           style={[
             styles.button,
             authState === AuthState.Loading && styles.buttonDisabled,
+            styles.loginButton,
           ]}
           disabled={authState === AuthState.Loading}>
-          <Text>Login</Text>
+          <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -109,10 +118,9 @@ export const LoginScreen = () => {
           style={[
             styles.button,
             authState === AuthState.Loading && styles.buttonDisabled,
-            styles.registerButton,
           ]}
           disabled={authState === AuthState.Loading}>
-          <Text>Register</Text>
+          <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -126,13 +134,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: colors.darkBlue,
   },
-
   inputContainer: {
     padding: 10,
-    alignSelf: 'stretch',
     marginHorizontal: 10,
   },
-
   error: {
     textAlign: 'center',
     marginTop: 10,
@@ -140,34 +145,53 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // color: colors.white,
   },
-
   input: {
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 10,
-    height: 50,
-    marginVertical: 8,
+    padding: scaleWidth(10),
+    width: scaleWidth(300),
+    height: scaleWidth(40),
     backgroundColor: 'white',
-    borderRadius: 5,
-    // ...shadows,
+    borderRadius: 20,
   },
-
   buttons: {
     marginTop: 16,
     flexDirection: 'row',
+    alignItems: 'center',
   },
-
   button: {
-    // ...buttonStyles.button,
-    // ...shadows,
-    margin: 50,
+    height: scaleWidth(40),
+    width: scaleWidth(145),
+    borderRadius: scaleWidth(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: scaleWidth(5)
   },
-
   buttonDisabled: {
     opacity: 0.5,
   },
-
-  registerButton: {
-    // backgroundColor: colors.purpleDark,
+  loginButton: {
+    backgroundColor: '#F94892',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginText: {
+    color: 'white',
+  },
+  registerText: {
+    color: '#F94892',
+  },
+  logoStyle: {
+    width: scaleWidth(180),
+    height: scaleWidth(60),
+    resizeMode: 'contain',
+  },
+  cloneText: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    fontStyle: 'italic',
+    fontSize: 16,
+    color: '#F94892',
   },
 });

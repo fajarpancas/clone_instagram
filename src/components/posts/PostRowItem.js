@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Colors from '../../themes/Colors';
 import {scaleHeight, scaleWidth} from '../../transforms/scale';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
+// import Carousel, {Pagination} from 'react-native-snap-carousel';
 import moment from 'moment';
 
 const {width, height} = Dimensions.get('window');
@@ -28,25 +28,25 @@ class PostRowItem extends PureComponent {
     };
   }
 
-  get pagination() {
-    const {data} = this.props;
-    const {indexSlide} = this.state;
-    return (
-      <Pagination
-        dotsLength={data && data.posts ? data.posts.length : 0}
-        activeDotIndex={indexSlide}
-        containerStyle={{
-          backgroundColor: 'transparent',
-          marginTop: scaleHeight(-8),
-          marginBottom: scaleHeight(-15),
-        }}
-        dotStyle={styles.activeDotStyle}
-        inactiveDotStyle={styles.dotStyle}
-        inactiveDotOpacity={1}
-        inactiveDotScale={1}
-      />
-    );
-  }
+  // get pagination() {
+  //   const {data} = this.props;
+  //   const {indexSlide} = this.state;
+  //   return (
+  //     <Pagination
+  //       dotsLength={data && data.posts ? data.posts.length : 0}
+  //       activeDotIndex={indexSlide}
+  //       containerStyle={{
+  //         backgroundColor: 'transparent',
+  //         marginTop: scaleHeight(-8),
+  //         marginBottom: scaleHeight(-15)
+  //       }}
+  //       dotStyle={styles.activeDotStyle}
+  //       inactiveDotStyle={styles.dotStyle}
+  //       inactiveDotOpacity={1}
+  //       inactiveDotScale={1}
+  //     />
+  //   );
+  // }
 
   render() {
     const {data} = this.props;
@@ -58,7 +58,7 @@ class PostRowItem extends PureComponent {
             {data.username}
           </Text>
         </View>
-        <Carousel
+        {/* <Carousel
           renderItem={({item}) => (
             <Image source={item.image} style={styles.image} />
           )}
@@ -70,7 +70,7 @@ class PostRowItem extends PureComponent {
           sliderHeight={scaleHeight(50)}
           itemHeight={scaleHeight(60)}
         />
-        {this.pagination}
+        {this.pagination} */}
         <View style={styles.bottomWrapper}>
           <Text style={styles.fontBlack}>{data.likes} likes</Text>
           <Text

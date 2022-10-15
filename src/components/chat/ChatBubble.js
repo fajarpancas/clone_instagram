@@ -11,8 +11,8 @@ const ChatBubble = ({index, item, user, onUnsend, onDelete, onUpdate}) => {
 
   if (userId === user?.id) {
     return (
-      <>
-        <View style={styles.messageWrapper(index === 0)}>
+      <View>
+        <View style={styles.messageWrapper}>
           {!isDeleted && (
             <TouchableOpacity onPress={() => onUpdate(item._id, text)}>
               <Image
@@ -34,7 +34,7 @@ const ChatBubble = ({index, item, user, onUnsend, onDelete, onUpdate}) => {
             )}
           </View>
         </View>
-        <View style={{...styles.timeWrapper, ...styles.spaceBottom}}>
+        <View style={[styles.timeWrapper, index === 0 ? styles.spaceText : {}]}>
           <View style={styles.flexRow}>
             <TouchableOpacity onPress={() => onDelete(item._id)}>
               <Text style={styles.deletePermanently}>Delete</Text>
@@ -55,13 +55,13 @@ const ChatBubble = ({index, item, user, onUnsend, onDelete, onUpdate}) => {
             </Text>
           </View>
         </View>
-      </>
+      </View>
     );
   }
 
   return (
-    <>
-      <View style={styles.receiverWrapper(index === 0)}>
+    <View>
+      <View style={styles.receiverWrapper}>
         <Text style={styles.senderName}>{name}</Text>
         {isDeleted ? (
           <Text
@@ -74,43 +74,41 @@ const ChatBubble = ({index, item, user, onUnsend, onDelete, onUpdate}) => {
         )}
       </View>
       <Text
-        style={{
-          ...styles.time,
-          ...styles.spaceBottom,
-          marginLeft: scaleWidth(10),
-        }}>
+        style={[
+          {
+            ...styles.time,
+            marginLeft: scaleWidth(10),
+          },
+          index === 0 ? styles.spaceText : {},
+        ]}>
         {moment(createdAt).format('HH:mm A')}
       </Text>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  messageWrapper: firstIndex => {
-    return {
-      flexDirection: 'row',
-      alignSelf: 'flex-end',
-      alignItems: 'flex-end',
-      marginBottom: scaleWidth(5),
-      marginRight: scaleWidth(10),
-      marginTop: firstIndex ? scaleHeight(15) : 0,
-    };
+  messageWrapper: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    alignItems: 'flex-end',
+    marginBottom: scaleWidth(5),
+    marginTop: scaleWidth(15),
+    marginRight: scaleWidth(10),
   },
-  receiverWrapper: firstIndex => {
-    return {
-      backgroundColor: '#373945',
-      maxWidth: scaleWidth(250),
-      minHeight: scaleHeight(10),
-      alignSelf: 'flex-start',
-      marginLeft: scaleWidth(10),
-      marginBottom: scaleWidth(5),
-      marginTop: firstIndex ? scaleHeight(15) : 0,
-      borderTopLeftRadius: scaleWidth(15),
-      borderTopRightRadius: scaleWidth(15),
-      borderBottomRightRadius: scaleWidth(15),
-      paddingVertical: scaleWidth(10),
-      paddingHorizontal: scaleWidth(15),
-    };
+  receiverWrapper: {
+    backgroundColor: '#373945',
+    maxWidth: scaleWidth(250),
+    minHeight: scaleHeight(10),
+    alignSelf: 'flex-start',
+    marginLeft: scaleWidth(10),
+    marginBottom: scaleWidth(5),
+    marginTop: scaleWidth(15),
+    borderTopLeftRadius: scaleWidth(15),
+    borderTopRightRadius: scaleWidth(15),
+    borderBottomRightRadius: scaleWidth(15),
+    paddingVertical: scaleWidth(10),
+    paddingHorizontal: scaleWidth(15),
   },
   senderWrapper: {
     backgroundColor: '#319de6',
@@ -178,7 +176,7 @@ const styles = StyleSheet.create({
   separator: {
     color: Colors.grey400,
   },
-  spaceBottom: {
+  spaceText: {
     marginBottom: scaleHeight(10),
   },
 });

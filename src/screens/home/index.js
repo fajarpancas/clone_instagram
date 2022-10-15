@@ -3,7 +3,7 @@ import {FlatList, SafeAreaView} from 'react-native';
 import PostRowItem from '../../components/posts/PostRowItem';
 import InstaStories from '../../components/stories/InstaStories';
 import Posts from './Posts';
-const STORIES = require('./Stories.json');
+// const STORIES = require('./Stories.json');
 
 export default function Home({navigation}) {
   return (
@@ -14,7 +14,7 @@ export default function Home({navigation}) {
         renderItem={({item, index}) => {
           return <PostRowItem data={item} index={index} />;
         }}
-        ListHeaderComponent={() => <InstaStories data={STORIES} />}
+        ListHeaderComponent={() => <InstaStories data={[]} />}
       />
     </SafeAreaView>
   );

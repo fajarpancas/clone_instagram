@@ -1,35 +1,24 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ReelsScreen from '../screens/reels';
-import ShoppingScreen from '../screens/shopping';
-import ProfileScreen from '../screens/profile';
-import HomeStackScreen from './HomeStack';
-import CustomHeader from '../components/CustomHeader';
-import ExploreStackScreen from './ExploreStack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeTabScreen from './StackNavigation';
+import ActivityScreen from '../screens/home/Activity';
+import ChatScreen from '../screens/chat';
+import ExploreDetailScreen from '../screens/explore/ExploreDetail';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
 const BottomTabsNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="home"
-        component={HomeStackScreen}
-        options={({navigation, route}) => ({
-          headerTitle: '',
-          headerLeft: props => (
-            <CustomHeader navigation={navigation} {...props} />
-          ),
-        })}
-      />
-      <Tab.Screen
-        name="explore"
-        component={ExploreStackScreen}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeTabScreen}
         options={{headerShown: false}}
       />
-      <Tab.Screen name="reels" component={ReelsScreen} />
-      <Tab.Screen name="shopping" component={ShoppingScreen} />
-      <Tab.Screen name="profile" component={ProfileScreen} />
-    </Tab.Navigator>
+      <Stack.Screen name="Activity" component={ActivityScreen} />
+      <Stack.Screen name="Chat" component={ChatScreen} />
+      <Stack.Screen name="ExploreDetail" component={ExploreDetailScreen} />
+    </Stack.Navigator>
   );
 };
 
